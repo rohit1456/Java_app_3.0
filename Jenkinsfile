@@ -5,6 +5,9 @@ pipeline{
     agent any
     //agent { label 'Demo' }
 
+    triggers {
+	githubPush()
+    }
     parameters{
 
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
