@@ -44,6 +44,21 @@ pipeline{
                }
             }
         }
+	stage('Upload to Artifactory') {
+    	    steps {
+        	rtUpload (
+            		serverId: "JFrog-Artifactory",
+            		spec: """{
+                	    "files": [
+                   		 {	
+                        		"pattern": "target/*.jar",
+                        		"target": "example-repo-local/"
+                   		 }
+               	             ]
+            		}"""
+        	    )
+    		}
+	}
         stage('Static code analysis: Sonarqube'){
          when { expression {  params.action == 'create' } }
             steps{
